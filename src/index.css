@@ -1,68 +1,154 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+@custom-variant dark (&:is(.dark *));
+
+@font-face {
+  font-family: Nunito;
+  src: url("src/assets/fonts/Nunito-Regular.ttf");
+}
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* 🎨 --- TEMA CLARO (Light Mode) --- 🎨 */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --radius: 0.625rem;
+  
+  /* Cores Base */
+  --background: #faf9f6; /* Fundo principal (off-white) */
+  --foreground: #4B415D; /* Texto principal (roxo escuro) */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Componentes (Cards, Popovers) */
+  --card: #faf9f6; /* Fundo do card */
+  --card-foreground: #4B415D; /* Texto do card */
+  --popover: #faf9f6; /* Fundo do popover */
+  --popover-foreground: #4B415D; /* Texto do popover */
+  
+  /* Cor Primária (Ação) */
+  --primary: #614a88; /* Roxo divertido para botões e links */
+  --primary-foreground: #faf9f6; /* Texto sobre a cor primária (alto contraste) */
+  
+  /* Cor Secundária e Destaques */
+  --secondary: #614a88; /* Reutilizando o roxo divertido */
+  --secondary-foreground: #faf9f6; /* Texto sobre a cor secundária */
+  --accent: #614a88; /* Reutilizando para ênfase */
+  --accent-foreground: #faf9f6; /* Texto sobre o accent */
+  
+  /* Cores de Estado e Bordas */
+  --muted: #e7e5e9; /* Um cinza claro derivado do off-white */
+  --muted-foreground: #6b5f7e; /* Roxo escuro com menos saturação */
+  --border: #d8d4de; /* Borda sutil */
+  --input: #d8d4de; /* Fundo de input */
+  --ring: #614a88; /* Foco em elementos interativos */
+  --destructive: #ef4444; /* Vermelho para ações destrutivas (padrão) */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  /* Cores de Gráficos (Exemplo) */
+  --chart-1: #614a88;
+  --chart-2: #8a7aa1;
+  --chart-3: #4B415D;
+  --chart-4: #b0a3c2;
+  --chart-5: #322a3d;
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  /* Cores da Sidebar (Exemplo) */
+  --sidebar: #f5f3f0;
+  --sidebar-foreground: #4B415D;
+  --sidebar-primary: #614a88;
+  --sidebar-primary-foreground: #faf9f6;
+  --sidebar-accent: #614a88;
+  --sidebar-accent-foreground: #faf9f6;
+  --sidebar-border: #d8d4de;
+  --sidebar-ring: #614a88;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* 🎨 --- TEMA ESCURO (Dark Mode) --- 🎨 */
+.dark {
+  /* Cores Base Invertidas */
+  --background: #4B415D; /* Fundo principal (roxo escuro) */
+  --foreground: #faf9f6; /* Texto principal (off-white) */
+
+  /* Componentes (Cards, Popovers) */
+  --card: #322a3d; /* Roxo um pouco mais claro para o card */
+  --card-foreground: #faf9f6; /* Texto do card */
+  --popover: #322a3d; /* Fundo do popover */
+  --popover-foreground: #faf9f6; /* Texto do popover */
+
+  /* Cor Primária (Ação) - Pode precisar de mais brilho, mas mantemos por consistência */
+  --primary: #614a88; /* Roxo divertido */
+  --primary-foreground: #faf9f6; /* Texto sobre a cor primária */
+
+  /* Cor Secundária e Destaques */
+  --secondary: #614a88;
+  --secondary-foreground: #faf9f6;
+  --accent: #614a88;
+  --accent-foreground: #faf9f6;
+
+  /* Cores de Estado e Bordas */
+  --muted: #6b5f7e;
+  --muted-foreground: #d8d4de;
+  --border: #6b5f7e;
+  --input: #6b5f7e;
+  --ring: #614a88;
+  --destructive: #ef4444; /* Vermelho para ações destrutivas */
+
+  /* Cores de Gráficos (Exemplo) */
+  --chart-1: #614a88;
+  --chart-2: #8a7aa1;
+  --chart-3: #b0a3c2;
+  --chart-4: #faf9f6;
+  --chart-5: #322a3d;
+  
+  /* Cores da Sidebar (Exemplo) */
+  --sidebar: #322a3d;
+  --sidebar-foreground: #faf9f6;
+  --sidebar-primary: #614a88;
+  --sidebar-primary-foreground: #faf9f6;
+  --sidebar-accent: #614a88;
+  --sidebar-accent-foreground: #faf9f6;
+  --sidebar-border: #6b5f7e;
+  --sidebar-ring: #614a88;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Nunito", sans-serif; /* <-- Adicione esta linha */
   }
 }
