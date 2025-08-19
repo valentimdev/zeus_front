@@ -6,14 +6,6 @@ import { ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { ChartLegend, ChartLegendContent } from '@/components/ui/chart';
 import { useMemo } from 'react';
 
-const chartData = [
-  { month: 'January', racao_x: 186, racao_y: 80 },
-  { month: 'February', racao_x: 305, racao_y: 200 },
-  { month: 'March', racao_x: 237, racao_y: 120 },
-  { month: 'April', racao_x: 73, racao_y: 190 },
-  { month: 'May', racao_x: 209, racao_y: 130 },
-  { month: 'June', racao_x: 214, racao_y: 140 },
-];
 
 const chartConfig = {
   racao_x: {
@@ -35,20 +27,15 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function Grafico() {
-  // Gera dinamicamente os dados para os últimos 6 meses
   const chartData = useMemo(() => {
     const data = [];
-    const today = new Date(); // Pega a data atual
+    const today = new Date(); 
 
-    // Loop para os últimos 6 meses (de 5 meses atrás até o mês atual)
-    for (let i = 3; i >= 0; i--) {
-      // Cria uma data para cada um dos últimos 6 meses
+    for (let i = 2; i >= 0; i--) {
       const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
 
-      // Formata o nome do mês (ex: "Agosto", "Julho")
       const monthName = date.toLocaleString('pt-BR', { month: 'long' });
 
-      // Adiciona os dados ao array (usando valores aleatórios como exemplo)
       data.push({
         month: monthName,
         racao_x: Math.floor(Math.random() * 300) + 50,

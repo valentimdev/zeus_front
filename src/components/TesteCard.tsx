@@ -11,10 +11,10 @@ import {
 type TesteCardProps = {
   title: string;
   descricao: string;
-  acao: React.ReactNode;
+  conteudo: string;
 };
 
-export function TesteCard({ title, descricao }: TesteCardProps) {
+export function TesteCard({ title, descricao,conteudo }: TesteCardProps) {
   return (
     <Card>
       <CardHeader>
@@ -23,11 +23,11 @@ export function TesteCard({ title, descricao }: TesteCardProps) {
         
       </CardHeader>
       <CardContent>
-        <p>Card Content</p>
+        <p>{conteudo}</p>
       </CardContent>
-      <CardFooter>
+      {/* <CardFooter>
         <p>Card Footer</p>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 }
