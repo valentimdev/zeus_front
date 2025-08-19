@@ -47,7 +47,7 @@ export function Grafico() {
     return data;
   }, []);
   return (
-    <div className="flex flex-col w-full max-w-lg">
+    <div className="flex flex-col w-full max-w-lg ">
       <ChartContainer
         config={chartConfig}
         className="border border-black-500 min-h-[200px] w-full aspect-video"

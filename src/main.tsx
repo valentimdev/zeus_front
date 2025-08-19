@@ -11,14 +11,14 @@ import './index.css';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />, // O App é o layout principal (com o Header)
+    element: <App />,
     children: [
       {
-        index: true, // Rota principal (/)
+        index: true, 
         element: <HomePage />,
       },
       {
-        path: 'registros', // Rota para /registros
+        path: 'registros',
         element: <RegistrosPage />,
       },
     ],
