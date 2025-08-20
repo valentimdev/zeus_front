@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogClose,
@@ -8,35 +8,46 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import Combobox from './Combobox';
+import DayPicker  from './DayPicker';
+import InputCurrency from './InputCurrency';
 
 export function RegistrarCompra() {
   return (
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <Button variant="outline">Open Dialog</Button>
+          <Button variant="outline">+ Registrar Compra</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
+            <DialogTitle>Registro de compra</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you&apos;re
-              done.
+              Preencha os campos para registrar uma nova compra
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4">
             <div className="grid gap-3">
-              <Label htmlFor="name-1">Name</Label>
-              <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
+              <Label htmlFor="name-1">Ração</Label>
+              <Combobox />
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="username-1">Username</Label>
-              <Input id="username-1" name="username" defaultValue="@peduarte" />
+              <Label>Valor</Label>
+              <InputCurrency placeholder="R$ 0,00"></InputCurrency>
+            </div>
+            <div className="grid gap-3">
+              <Label>Quantidade Comprada</Label>
+              <Input id="username-1" name="username" defaultValue={1} />
+            </div>
+            <div className="grid gap-3">
+              <Label>Data da Compra</Label>
+              <DayPicker />
             </div>
           </div>
+
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
@@ -46,6 +57,6 @@ export function RegistrarCompra() {
         </DialogContent>
       </form>
     </Dialog>
-  )
+  );
 }
 export default RegistrarCompra;

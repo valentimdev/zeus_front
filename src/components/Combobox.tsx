@@ -58,16 +58,16 @@ export function Combobox() {
           >
             {value
               ? frameworks.find((framework) => framework.value === value)?.label
-              : 'Select framework...'}
+              : 'Escolha uma ração...'}
             <ChevronsUpDown className="opacity-50" />
           </Button>
         </div>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." className="h-9" />
+          <CommandInput placeholder="Procurar ração..." className="h-9" />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>Nenhuma ração encontrada.</CommandEmpty>
             <CommandGroup>
               {frameworks.map((framework) => (
                 <CommandItem

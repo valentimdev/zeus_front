@@ -35,6 +35,8 @@ function DayPicker() {
             setDate(selectedDate);
             setOpen(false);
           }}
+
+          
         />
       </PopoverContent>
     </Popover>
