@@ -9,10 +9,10 @@ import HomePage from './pages/HomePage.tsx';
 
 function App() {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen w-screen border border-amber-400">
       <Header />
-      <main className='flex-1 p-4 sm:p-6 md:p-8'>
-      <Outlet></Outlet>
+      <main className="flex h-full w-full items-center justify-center border border-amber-950">
+        <Outlet></Outlet>
       </main>
     </div>
   );

@@ -6,9 +6,9 @@ import { Label } from './ui/label';
 
 function InputTextBox() {
   return (
-    <div>
+    <div className='w-full border border bg-amber-100'>
       <Label htmlFor="email">XXXX</Label>
-      <Input className="w-80"></Input>
+      <Input className="w-full"></Input>
     </div>
   );
 }

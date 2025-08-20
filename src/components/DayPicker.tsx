@@ -16,14 +16,16 @@ function DayPicker() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          data-empty={!date}
-          className="data-[empty=true]:text-muted-foreground w-[300px] justify-start text-left font-normal"
-        >
-          <CalendarIcon />
-          {date ? format(date, 'PPP') : <span>Pick a date</span>}
-        </Button>
+        <div className='flex w-full border border-amber-300'>
+          <Button
+            variant="outline"
+            data-empty={!date}
+            className="data-[empty=true]:text-muted-foreground w-full justify-start text-left font-normal"
+          >
+            <CalendarIcon />
+            {date ? format(date, 'PPP') : <span>Pick a date</span>}
+          </Button>
+        </div>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
