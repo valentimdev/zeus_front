@@ -1,8 +1,25 @@
+import { useState } from 'react';
 import { Grafico } from '../components/Grafico';
 import Tabela from '../components/Tabela';
 import TesteCard from '../components/TesteCard';
 
+interface Racao {
+_id: string;
+nome: string;
+marca: string;
+pesoEmKg: number;
+}
 export function HomePage() {
+  //Constante que ta guardando as rações em uma lista(vou usar no historico)
+  const [racoes, setRacoes] = useState<Racao[]>([]);
+  //Esse form data vai ser usado na hora de preencher o pop up do registrar ração
+  const [formData, setFormData] = useState({
+      racao: '', // Vai armazenar o ID da ração selecionada
+      valorPago: '',
+      quantidadeComprada: '',
+      data: new Date().toISOString().split('T')[0],
+    });
+  
   return (
     <div className="flex flex-col items-center justify-center h-full w-full gap-[20px] ">
       <div className="flex flex-col w-full max-w-5xl gap-[30px]">

@@ -7,7 +7,7 @@ import HomePage from './pages/HomePage.tsx'; // Importando a HomePage
 import RegistrosPage from './pages/RegistrosPage.tsx'; // Importando a nova página
 import './index.css';
 
-// Configuração do roteador
+
 const router = createBrowserRouter([
   {
     path: '/',
