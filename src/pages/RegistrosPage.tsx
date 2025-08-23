@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import TesteCard from '../components/TesteCard';
+import filterDates from '../util/filterDates'
 
 // Interface para tipar os dados de uma ração
 interface Racao {
@@ -111,7 +112,7 @@ function RegistrosPage() {
       <ul className="list-disc pl-5 bg-gray-100 p-4 rounded-md">
         {racoes.map((racao) => (
           <li>
-            {racao.nome} {racao.ultimoPreco} ({racao.marca}) {racao.melhorPreco}
+            {racao.melhorPreco} 
           </li>
         ))} 
       </ul>
