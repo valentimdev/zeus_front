@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import React from 'react';
 
 function DayPicker() {
-  const [date, setDate] = React.useState<Date>();
+  const [date, setDate] = React.useState<Date>(new Date()); // Default to today
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -36,7 +36,8 @@ function DayPicker() {
             setOpen(false);
           }}
 
-          
+
+
         />
       </PopoverContent>
     </Popover>
