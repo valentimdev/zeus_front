@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import React from 'react';
 
 function DayPicker() {
-  const [date, setDate] = React.useState<Date>(new Date()); // Default to today
+  const [date, setDate] = React.useState<Date | undefined>(new Date());
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -23,7 +23,7 @@ function DayPicker() {
             className="data-[empty=true]:text-muted-foreground w-full justify-start text-left font-normal"
           >
             <CalendarIcon />
-            {date ? format(date, 'PPP') : <span>Pick a date</span>}
+            {date ? format(date, 'yyyy-MM-dd') : <span>Pick a date</span>}
           </Button>
         </div>
       </PopoverTrigger>

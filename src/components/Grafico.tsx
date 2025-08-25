@@ -4,44 +4,46 @@ import { ChartContainer } from '@/components/ui/chart';
 import type { ChartConfig } from '@/components/ui/chart';
 import { ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { ChartLegend, ChartLegendContent } from '@/components/ui/chart';
-import { useMemo } from 'react';
+import { useMemo, useState,useEffect } from 'react';
+import comprasService from '@/services/comprasService';
 
 
+const dadosTodasCompras = comprasService.getCompras();
 const chartConfig = {
-  racao_x: {
-    label: 'Racao X',
-    color: '#2563eb',
+  semana_1: {
+    label: 'Primeira Semana',
   },
-  racao_y: {
-    label: 'Racao Y',
-    color: '#60a5fa',
+  semana_2: {
+    label: 'Segunda Semana',
+
   },
-  racao_z: {
-    label: 'Racao Z',
-    color: '#60a5fa',
+  semana_3: {
+    label: 'Terceira Semana',
   },
-  Outros: {
-    label: 'Outros',
-    color: '#60a5fa',
+  semana_4: {
+    label: 'Quarta Semana',
   },
 } satisfies ChartConfig;
 
 export function Grafico() {
+
+  const [monthlyData, setMonthlyData] = useState<{ month: string; total: number }[]>([]);
   const chartData = useMemo(() => {
     const data = [];
-    const today = new Date(); 
+    const today = new Date();
 
     for (let i = 2; i >= 0; i--) {
       const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
 
       const monthName = date.toLocaleString('pt-BR', { month: 'long' });
 
+
       data.push({
         month: monthName,
-        racao_x: Math.floor(Math.random() * 300) + 50,
-        racao_y: Math.floor(Math.random() * 200) + 50,
-        racao_z: Math.floor(Math.random() * 150) + 30,
-        outros: Math.floor(Math.random() * 100) + 20,
+        semana_1: Math.floor(Math.random() * 300) + 50,
+        semana_2: Math.floor(Math.random() * 200) + 50,
+        semana_3: Math.floor(Math.random() * 150) + 30,
+        semana_4: Math.floor(Math.random() * 100) + 20,
       });
     }
     return data;
@@ -63,10 +65,10 @@ export function Grafico() {
           />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="racao_x" fill="var(--color-racao_x)" radius={4} />
-          <Bar dataKey="racao_y" fill="var(--color-racao_y)" radius={4} />
-          <Bar dataKey="racao_z" fill="var(--color-racao_y)" radius={4} />
-          <Bar dataKey="Outros" fill="var(--color-racao_y)" radius={4} />
+          <Bar dataKey="semana_1" fill="var(--chart-1)" radius={4} />
+          <Bar dataKey="semana_2" fill="var(--chart-2)" radius={4} />
+          <Bar dataKey="semana_3" fill="var(--chart-3)" radius={4} />
+          <Bar dataKey="semana_4" fill="var(--chart-4)" radius={4} />
         </BarChart>
       </ChartContainer>
     </div>

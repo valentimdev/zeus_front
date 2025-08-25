@@ -12,10 +12,25 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Combobox from './Combobox';
-import DayPicker  from './DayPicker';
+import DayPicker from './DayPicker';
 import InputCurrency from './InputCurrency';
+import { useState } from 'react';
 
 export function RegistrarCompra() {
+  const [racaoId, setRacao] = useState(null);
+  const [valorPago, setValor] = useState(null);
+  const [quantidade, setQuantidade] = useState(1);
+  const [data, setData] = useState(new Date());
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const compraData = {
+    racao: racaoId, // Pode ser null se nenhuma ração for selecionada
+    valorPago,
+    quantidade,
+    data,
+  };
   return (
     <Dialog>
       <form>

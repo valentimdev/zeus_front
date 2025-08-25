@@ -17,3 +17,14 @@ export const deleteCompra = (id: string | number) => api.delete(`/api/compras/${
 
 // Get compra stats
 export const getCompraStats = () => api.get('/api/compras/stats');
+
+const comprasService = {
+  getCompras,
+  getCompraById,
+  createCompra,
+  updateCompra,
+  deleteCompra,
+  getCompraStats,
+};
+
+export default comprasService;

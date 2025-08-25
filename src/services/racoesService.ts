@@ -14,3 +14,12 @@ export const updateRacao = (id: string | number, data: any) => api.put(`/api/rac
 
 // Delete a racao
 export const deleteRacao = (id: string | number) => api.delete(`/api/racoes/${id}`);
+
+const racoesService = {
+  getRacoes,
+  getRacaoById,
+  createRacao,
+  updateRacao,
+  deleteRacao,
+};
+export default racoesService;
