@@ -1,14 +1,10 @@
+import comprasService from "@/services/comprasService";
 
-const racaoMaisBarata = (racaoMelhorPreco: number[]) => {
-  if (racaoMelhorPreco.length == 0 || racaoMelhorPreco == null) {
-    return null;
-  }
-  let menorPreco = racaoMelhorPreco[0];
-  for (let i = 0; i < racaoMelhorPreco.length; i++) {
-    if (menorPreco > racaoMelhorPreco[i] && racaoMelhorPreco[i] != 0) {
-      menorPreco = racaoMelhorPreco[i];
-    }
-  }
-  return menorPreco;
+const resumoMes = async (ano: number, mes: number) => {
+    const response = await comprasService.getComprasPorMes(ano, mes);
+    return response;
+//   const params = new URLSearchParams();
+//   const rota = comprasService.getComprasPorMes(2025,8);
 };
-export default racaoMaisBarata;
+
+export default resumoMes;

@@ -7,10 +7,10 @@ import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import React from 'react';
+import React, { type Dispatch, type SetStateAction } from 'react';
 
-function DayPicker() {
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
+function DayPicker({date, setDate}: {date: Date | undefined, setDate: Dispatch<SetStateAction<Date | undefined>>}) {
+  // const [date, setDate] = React.useState<Date | undefined>(new Date());
   const [open, setOpen] = React.useState(false);
 
   return (

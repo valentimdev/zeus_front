@@ -14,26 +14,68 @@ import { Label } from '@/components/ui/label';
 import Combobox from './Combobox';
 import DayPicker from './DayPicker';
 import InputCurrency from './InputCurrency';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createCompra } from '@/services/comprasService';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
 
 export function RegistrarCompra() {
-  const [racaoId, setRacao] = useState(null);
-  const [valorPago, setValor] = useState(null);
-  const [quantidade, setQuantidade] = useState(1);
-  const [data, setData] = useState(new Date());
+  const [categoria, setCategoria] = useState('');
+  const [valorPago, setValor] = useState<string | number | undefined>('');
+  const [data, setData] = useState<Date | undefined>(new Date());
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
+  const handleSubmit = async (e: any) => {
+    // para impedir o reload da pagina
+    e.preventDefault();
 
-  const compraData = {
-    racao: racaoId, // Pode ser null se nenhuma ração for selecionada
-    valorPago,
-    quantidade,
-    data,
+    // validacao para garantir que todos os campos foram preenchidos
+    if (!categoria || !valorPago || !data) {
+      setStatusMessage('Error: Todos os campos tem que ser preenchidos.');
+      return;
+    }
+
+    // Cria o post do objeto com os dados do formulario
+    const postData = {
+      categoria: categoria,
+      valorPago: valorPago,
+      data: data,
+    };
+
+    // Mensagem de loading enquanto a requisicao esta sendo feita
+    setStatusMessage('Enviando...');
+
+    try {
+      const response = await createCompra(postData);
+
+      console.log('Post criado com sucesso:', response.data);
+      // Mensagem de sucesso quando a requisicao for concluida
+      setStatusMessage(`ID: ${response.data.id}`);
+
+      // Clear the form fields after successful submission
+      setCategoria('');
+      setValor('');
+      setData(new Date());
+    } catch (error) {
+      console.error('Error:', error);
+      setStatusMessage('Error: Post cancelado.');
+    }
   };
+
+  useEffect(() => {
+    console.log('Data selecionada:', data);
+  }, [data])
   return (
     <Dialog>
-      <form>
+      <form onSubmit={handleSubmit}>
         <DialogTrigger asChild>
           <Button variant="outline">+ Registrar Compra</Button>
         </DialogTrigger>
@@ -46,21 +88,26 @@ export function RegistrarCompra() {
           </DialogHeader>
           <div className="grid gap-4">
             <div className="grid gap-3">
-              <Label htmlFor="name-1">Ração</Label>
-              <Combobox />
-            </div>
-            <div className="grid gap-3">
               <Label>Valor</Label>
-              <InputCurrency placeholder="R$ 0,00"></InputCurrency>
+              <InputCurrency  value={valorPago} onValueChange={setValor} placeholder="R$ 0,00"/>
             </div>
             <div className="grid gap-3">
-              <Label>Quantidade Comprada</Label>
-              <Input id="username-1" name="username" defaultValue={1} />
+              <Label>Categoria</Label>
+              <Select value={categoria} onValueChange={setCategoria}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione um item" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Saúde">Saúde</SelectItem>
+                  <SelectItem value="Comida">Comida</SelectItem>
+                  <SelectItem value="Lazer">Lazer</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid gap-3">
               <Label>Data da Compra</Label>
-              <DayPicker />
-            </div>
+              <DayPicker date={data} setDate={setData} />
+            </div>selected
           </div>
 
           <DialogFooter>

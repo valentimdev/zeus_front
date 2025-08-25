@@ -1,3 +1,4 @@
+import type { AxiosResponse } from "axios";
 import api from "./api";
 
 // Get all compras
@@ -18,6 +19,17 @@ export const deleteCompra = (id: string | number) => api.delete(`/api/compras/${
 // Get compra stats
 export const getCompraStats = () => api.get('/api/compras/stats');
 
+// Get compra mes
+export const getComprasPorMes = async (ano:number, mes:number): Promise<AxiosResponse<any, any> | undefined> => {
+  try {
+    const response = await api.get(`api/compras/compras-mes?ano=${ano}&mes=${mes}`);
+    // console.log('Requisicao ->', response);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao tentar fazer requisição.', error);
+  }
+};
+
 const comprasService = {
   getCompras,
   getCompraById,
@@ -25,6 +37,7 @@ const comprasService = {
   updateCompra,
   deleteCompra,
   getCompraStats,
+  getComprasPorMes,
 };
 
 export default comprasService;
