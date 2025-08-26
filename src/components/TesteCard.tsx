@@ -16,6 +16,7 @@ type TesteCardProps = {
 
 export function TesteCard({ title, descricao,conteudo }: TesteCardProps) {
   return (
+    <div className='text-center'>
     <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
@@ -23,12 +24,15 @@ export function TesteCard({ title, descricao,conteudo }: TesteCardProps) {
         
       </CardHeader>
       <CardContent>
-        <p>{conteudo}</p>
+        <p>
+          {conteudo ? <span>{conteudo}</span> : <span>Nenhum dado disponível</span>}
+        </p>
       </CardContent>
       {/* <CardFooter>
         <p>Card Footer</p>
       </CardFooter> */}
     </Card>
+    </div>
   );
 }
 export default TesteCard;

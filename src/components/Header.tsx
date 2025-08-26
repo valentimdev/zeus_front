@@ -10,10 +10,10 @@ const Header: React.FC = () => {
       <nav className=" container mx-auto flex gap-[15px] m-[20px] p-2.5 items-center w-full justify-between">
         <div className='flex gap-[20px] items-center justify-center'>
         <h1 className="font-bold text-2xl">Zeus</h1>
-          <Link to="/">
+          {/* <Link to="/">
             Inicio
-          </Link>
-          <Link to="/registros">Registrar Compra</Link>
+          </Link> */}
+          {/* <Link to="/registros">Registrar Compra</Link> */}
         </div>
         <div>
           <RegistrarCompra>+ Registrar Compra</RegistrarCompra>

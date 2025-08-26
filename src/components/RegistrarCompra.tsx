@@ -78,55 +78,57 @@ export function RegistrarCompra() {
     console.log('Data selecionada:', format(data, 'yyyy-MM-dd'));
   }, [data]);
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">+ Registrar Compra</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <form onSubmit={handleSubmit}>
-          <DialogHeader>
-            <DialogTitle>Registro de compra</DialogTitle>
-            <DialogDescription>
-              Preencha os campos para registrar uma nova compra
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4">
-            <div className="grid gap-3">
-              <Label>Valor</Label>
-              <InputCurrency
-                value={valorPago}
-                onValueChange={setValor}
-                placeholder="R$ 0,00"
-              />
+    <div>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline">+ Registrar Compra</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <form onSubmit={handleSubmit}>
+            <DialogHeader>
+              <DialogTitle>Registro de compra</DialogTitle>
+              <DialogDescription>
+                Preencha os campos para registrar uma nova compra
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4">
+              <div className="grid gap-3">
+                <Label>Valor</Label>
+                <InputCurrency
+                  value={valorPago}
+                  onValueChange={setValor}
+                  placeholder="R$ 0,00"
+                />
+              </div>
+              <div className="grid gap-3">
+                <Label>Categoria</Label>
+                <Select value={categoria} onValueChange={setCategoria}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione um item" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Saúde">Saúde</SelectItem>
+                    <SelectItem value="Comida">Comida</SelectItem>
+                    <SelectItem value="Lazer">Lazer</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-3">
+                <Label>Data da Compra</Label>
+                <DayPicker date={data} setDate={setData} />
+              </div>
             </div>
-            <div className="grid gap-3">
-              <Label>Categoria</Label>
-              <Select value={categoria} onValueChange={setCategoria}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione um item" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Saúde">Saúde</SelectItem>
-                  <SelectItem value="Comida">Comida</SelectItem>
-                  <SelectItem value="Lazer">Lazer</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="grid gap-3">
-              <Label>Data da Compra</Label>
-              <DayPicker date={data} setDate={setData} />
-            </div>
-          </div>
 
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-            <Button type="submit">Save changes</Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+              <Button type="submit">Save changes</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }
 export default RegistrarCompra;

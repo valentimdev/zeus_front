@@ -1,32 +1,85 @@
-import type { AxiosResponse } from "axios";
-import api from "./api";
+import type { AxiosResponse } from 'axios';
+import api from './api';
 
 // Get all compras
-export const getCompras = () => api.get('/api/compras');
+export const getCompras = async () => {
+  try {
+    const response = await api.get('/api/compras');
+    return response;
+  } catch (error) {
+    console.error('Erro ao tentar fazer requisição.', error);
+    throw error;
+  }
+};
 
 // Get compra by ID
-export const getCompraById = (id: string | number) => api.get(`/api/compras/${id}`);
+export const getCompraById = async (id: string | number) => {
+  try {
+    const response = await api.get(`/api/compras/${id}`);
+    return response;
+  } catch (error) {
+    console.error('Erro ao tentar fazer requisição.', error);
+    throw error;
+  }
+};
 
 // Create a new compra
-export const createCompra = (data: any) => api.post('/api/compras/', data);
+export const createCompra = async (data: any) => {
+  try {
+    const response = await api.post('/api/compras/', data);
+    return response;
+  } catch (error) {
+    console.error('Erro ao tentar fazer requisição.', error);
+    throw error;
+  }
+};
 
 // Update a compra
-export const updateCompra = (id: string | number, data: any) => api.put(`/api/compras/${id}`, data);
+export const updateCompra = async (id: string | number, data: any) => {
+  try {
+    const response = await api.put(`/api/compras/${id}`, data);
+    return response;
+  } catch (error) {
+    console.error('Erro ao tentar fazer requisição.', error);
+    throw error;
+  }
+};
 
 // Delete a compra
-export const deleteCompra = (id: string | number) => api.delete(`/api/compras/${id}`);
+export const deleteCompra = async (id: string | number) => {
+  try {
+    const response = await api.delete(`/api/compras/${id}`);
+    return response;
+  } catch (error) {
+    console.error('Erro ao tentar fazer requisição.', error);
+    throw error;
+  }
+};
 
 // Get compra stats
-export const getCompraStats = () => api.get('/api/compras/stats');
+export const getCompraStats = async () => {
+  try {
+    const response = await api.get('/api/compras/stats');
+    return response;
+  } catch (error) {
+    console.error('Erro ao tentar fazer requisição.', error);
+    throw error;
+  }
+};
 
 // Get compra mes
-export const getComprasPorMes = async (ano:number, mes:number): Promise<AxiosResponse<any, any> | undefined> => {
+export const getComprasPorMes = async (
+  ano: number,
+  mes: number
+): Promise<any> => {
   try {
-    const response = await api.get(`api/compras/compras-mes?ano=${ano}&mes=${mes}`);
-    // console.log('Requisicao ->', response);
+    const response = await api.get(
+      `/api/compras/compras-mes?ano=${ano}&mes=${mes}`
+    );
     return response.data;
   } catch (error) {
     console.error('Erro ao tentar fazer requisição.', error);
+    throw error;
   }
 };
 
