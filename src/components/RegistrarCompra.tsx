@@ -25,7 +25,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-export function RegistrarCompra() {
+export function RegistrarCompra({
+  onCompraCriada,
+}: {
+  onCompraCriada: (novaCompra: any) => void;
+}) {
   const [categoria, setCategoria] = useState('');
   const [valorPago, setValor] = useState<string | number | undefined>('');
   const [data, setData] = useState<Date>(new Date());
@@ -57,6 +61,7 @@ export function RegistrarCompra() {
 
       console.log('Post criado com sucesso:', response.data);
       setStatusMessage(`ID: ${response.data.id}`);
+      onCompraCriada(response.data);
 
       setCategoria('');
       setValor('');

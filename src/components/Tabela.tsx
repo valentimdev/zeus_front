@@ -8,34 +8,21 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-import { useEffect, useState } from 'react';
-import comprasService from '@/services/comprasService';
-
 const categoriaMap: Record<string, string> = {
   SAUDE: 'Saúde',
   COMIDA: 'Comida',
   LAZER: 'Lazer',
 };
 
-export function Tabela() {
-  const [compras, setCompras] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchCompras = async () => {
-      try {
-        const response = await comprasService.getCompras();
-        setCompras(response.data);
-      } catch (err) {
-        setError('Erro ao buscar compras');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCompras();
-  }, []);
-
+export function Tabela({
+  compras,
+  loading,
+  error,
+}: {
+  compras: any[];
+  loading: boolean;
+  error: string | null;
+}) {
   return (
     <div>
       <Table className="full">
@@ -43,7 +30,7 @@ export function Tabela() {
         <TableHeader>
           <TableRow>
             <TableHead>Categoria</TableHead>
-            <TableHead className='text-center'>Data</TableHead>
+            <TableHead className="text-center">Data</TableHead>
             <TableHead className="text-right">Valor Pago</TableHead>
           </TableRow>
         </TableHeader>

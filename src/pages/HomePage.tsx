@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Grafico } from '../components/Grafico';
 import Tabela from '../components/Tabela';
 import TesteCard from '../components/TesteCard';
+import { useOutletContext } from 'react-router-dom';
 
 import resumoMes from '@/util/filterDates';
 import { getCompras } from '@/services/comprasService';
@@ -14,15 +15,19 @@ import { getCompras } from '@/services/comprasService';
 // }
 
 export function HomePage() {
+  const {
+    compras,
+    loading,
+    error,
+    setCompras,
+  }: {
+    compras: any[];
+    loading: boolean;
+    error: string | null;
+    setCompras: React.Dispatch<React.SetStateAction<any[]>>;
+  } = useOutletContext();
   // //Constante que ta guardando as rações em uma lista(vou usar no historico)
   // const [racoes, setRacoes] = useState<Racao[]>([]);
-  // //Esse form data vai ser usado na hora de preencher o pop up do registrar ração
-  // const [formData, setFormData] = useState({
-  //   racao: '', // Vai armazenar o ID da ração selecionada
-  //   valorPago: '',
-  //   quantidadeComprada: '',
-  //   data: new Date().toISOString().split('T')[0],
-  // });
 
   const [mediaMes, setMediaMes] = useState<any | null>(null);
   useEffect(() => {
@@ -53,7 +58,7 @@ export function HomePage() {
     };
 
     fetchResumo();
-  }, []);
+  }, [compras]);
 
   const [mediaUltimos3Meses, setMediaUltimos3Meses] = useState<any | null>(
     null
@@ -74,14 +79,11 @@ export function HomePage() {
       });
       console.log('raw', requestResponse.data);
       console.log('filtragem', dadosFiltrados);
-      const valorFinal = dadosFiltrados?.reduce(
-        (accumulator, initialValue) => {
-          const valorIterado = initialValue.valorPago;
-          console.log('Valor=>', valorIterado);
-          return accumulator + valorIterado;
-        },
-        0
-      );
+      const valorFinal = dadosFiltrados?.reduce((accumulator, initialValue) => {
+        const valorIterado = initialValue.valorPago;
+        console.log('Valor=>', valorIterado);
+        return accumulator + valorIterado;
+      }, 0);
       // let valorFinal = 0;
       // dadosFiltrados.forEach((item) => {
       //   const valorNumerico = parseFloat(item.valorPago || 0);
@@ -94,7 +96,7 @@ export function HomePage() {
     };
 
     fetchMediaUltimos3Meses();
-  }, []);
+  }, [compras]);
 
   return (
     <div className="flex flex-col items-center h-full w-[70%] gap-[20px] ">
@@ -104,7 +106,7 @@ export function HomePage() {
             <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
               Ola, Felipe
             </h3>
-            <Grafico  />
+            <Grafico />
           </div>
           <div className="flex flex-col mx-auto w-[25%] border border black-200 ">
             <TesteCard
@@ -117,12 +119,12 @@ export function HomePage() {
               descricao="Pedigree 15kg"
               conteudo="$15,50"
             /> */}
-                        <TesteCard
+            <TesteCard
               title="Média de gastos"
               descricao="Baseado nos ultimos 3 meses"
               conteudo={`R$${(mediaUltimos3Meses || 0).toFixed(2)}`}
             />
-                                    <TesteCard
+            <TesteCard
               title="Média de gastos"
               descricao="Baseado nos ultimos x meses"
               conteudo={`R$${(mediaUltimos3Meses || 0).toFixed(2)}`}
@@ -141,7 +143,7 @@ export function HomePage() {
             />
           </div> */}
         </div>
-        <Tabela />
+        <Tabela compras={compras} loading={loading} error={error} />
       </div>
     </div>
   );
