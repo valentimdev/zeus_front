@@ -63,14 +63,13 @@ export function RegistrarCompra() {
       // Mensagem de sucesso quando a requisicao for concluida
       setStatusMessage(`ID: ${response.data.id}`);
 
-      // Clear the form fields after successful submission
       setCategoria('');
       setValor('');
       setData(new Date());
     } catch (error) {
       console.error('Error:', error);
       setStatusMessage('Error: Post cancelado.');
-    }finally {
+    } finally {
       setIsLoading(false);
     }
   };
@@ -80,11 +79,11 @@ export function RegistrarCompra() {
   }, [data]);
   return (
     <Dialog>
-      <form onSubmit={handleSubmit}>
-        <DialogTrigger asChild>
-          <Button variant="outline">+ Registrar Compra</Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+      <DialogTrigger asChild>
+        <Button variant="outline">+ Registrar Compra</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Registro de compra</DialogTitle>
             <DialogDescription>
@@ -125,8 +124,8 @@ export function RegistrarCompra() {
             </DialogClose>
             <Button type="submit">Save changes</Button>
           </DialogFooter>
-        </DialogContent>
-      </form>
+        </form>
+      </DialogContent>
     </Dialog>
   );
 }
