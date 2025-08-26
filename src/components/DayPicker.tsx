@@ -9,14 +9,20 @@ import { Calendar as CalendarIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import React, { type Dispatch, type SetStateAction } from 'react';
 
-function DayPicker({date, setDate}: {date: Date | undefined, setDate: Dispatch<SetStateAction<Date | undefined>>}) {
+function DayPicker({
+  date,
+  setDate,
+}: {
+  date: Date | undefined;
+  setDate: Dispatch<SetStateAction<Date>>;
+}) {
   // const [date, setDate] = React.useState<Date | undefined>(new Date());
   const [open, setOpen] = React.useState(false);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <div className='flex w-full border border-amber-300'>
+        <div className="flex w-full border border-amber-300">
           <Button
             variant="outline"
             data-empty={!date}
@@ -35,9 +41,6 @@ function DayPicker({date, setDate}: {date: Date | undefined, setDate: Dispatch<S
             setDate(selectedDate);
             setOpen(false);
           }}
-
-
-
         />
       </PopoverContent>
     </Popover>

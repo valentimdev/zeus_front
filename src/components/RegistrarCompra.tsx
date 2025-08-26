@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { format } from 'date-fns';
 import {
   Dialog,
   DialogClose,
@@ -24,11 +25,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-
 export function RegistrarCompra() {
   const [categoria, setCategoria] = useState('');
   const [valorPago, setValor] = useState<string | number | undefined>('');
-  const [data, setData] = useState<Date | undefined>(new Date());
+  const [data, setData] = useState<Date>(new Date());
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
@@ -36,6 +36,9 @@ export function RegistrarCompra() {
   const handleSubmit = async (e: any) => {
     // para impedir o reload da pagina
     e.preventDefault();
+    setStatusMessage('Enviando...');
+    setIsLoading(true);
+    const dataFormatada = format(data, 'yyyy-MM-dd');
 
     // validacao para garantir que todos os campos foram preenchidos
     if (!categoria || !valorPago || !data) {
@@ -47,7 +50,7 @@ export function RegistrarCompra() {
     const postData = {
       categoria: categoria,
       valorPago: valorPago,
-      data: data,
+      data: dataFormatada,
     };
 
     // Mensagem de loading enquanto a requisicao esta sendo feita
@@ -67,12 +70,14 @@ export function RegistrarCompra() {
     } catch (error) {
       console.error('Error:', error);
       setStatusMessage('Error: Post cancelado.');
+    }finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    console.log('Data selecionada:', data);
-  }, [data])
+    console.log('Data selecionada:', format(data, 'yyyy-MM-dd'));
+  }, [data]);
   return (
     <Dialog>
       <form onSubmit={handleSubmit}>
@@ -89,7 +94,11 @@ export function RegistrarCompra() {
           <div className="grid gap-4">
             <div className="grid gap-3">
               <Label>Valor</Label>
-              <InputCurrency  value={valorPago} onValueChange={setValor} placeholder="R$ 0,00"/>
+              <InputCurrency
+                value={valorPago}
+                onValueChange={setValor}
+                placeholder="R$ 0,00"
+              />
             </div>
             <div className="grid gap-3">
               <Label>Categoria</Label>
@@ -107,7 +116,7 @@ export function RegistrarCompra() {
             <div className="grid gap-3">
               <Label>Data da Compra</Label>
               <DayPicker date={data} setDate={setData} />
-            </div>selected
+            </div>
           </div>
 
           <DialogFooter>
