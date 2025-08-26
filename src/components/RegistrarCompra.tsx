@@ -81,7 +81,7 @@ export function RegistrarCompra() {
           setOpen(v);
           setStatusMessage('');
           if (v) {
-            setCategoria(''); 
+            setCategoria('');
           }
         }}
       >
@@ -129,9 +129,18 @@ export function RegistrarCompra() {
             </div>
             {/* Footer */}
             <div className="grid gap-6">
-              {/* Mensagem de erro discreta */}
+              {/* Mensagem de status discreta */}
               {statusMessage && (
-                <span className="text-xs text-red-500">{statusMessage}</span>
+                <span
+                  className={`text-xs ${
+                    statusMessage.includes('Error') ||
+                    statusMessage.includes('Todos os campos')
+                      ? 'text-red-500'
+                      : 'text-black'
+                  }`}
+                >
+                  {statusMessage}
+                </span>
               )}
               <DialogFooter>
                 <DialogClose asChild>
