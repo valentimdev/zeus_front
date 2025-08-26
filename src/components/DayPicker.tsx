@@ -22,7 +22,7 @@ function DayPicker({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <div className="flex w-full border border-amber-300">
+        <div className="flex w-full">
           <Button
             variant="outline"
             data-empty={!date}

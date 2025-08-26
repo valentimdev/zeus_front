@@ -34,38 +34,34 @@ export function RegistrarCompra() {
   const [open, setOpen] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
   const handleSubmit = async (e: any) => {
-    // para impedir o reload da pagina
     e.preventDefault();
-    setStatusMessage('Enviando...');
-    setIsLoading(true);
-    const dataFormatada = format(data, 'yyyy-MM-dd');
+    setStatusMessage(''); // Limpa antes de validar
 
-    // validacao para garantir que todos os campos foram preenchidos
     if (!categoria || !valorPago || !data) {
-      setStatusMessage('Error: Todos os campos tem que ser preenchidos.');
+      setStatusMessage('Todos os campos precisam ser preenchidos.');
       return;
     }
 
-    // Cria o post do objeto com os dados do formulario
+    setIsLoading(true);
+    setStatusMessage('Enviando...');
+    const dataFormatada = format(data, 'yyyy-MM-dd');
+
     const postData = {
       categoria: categoria,
       valorPago: valorPago,
       data: dataFormatada,
     };
 
-    // Mensagem de loading enquanto a requisicao esta sendo feita
-    setStatusMessage('Enviando...');
-
     try {
       const response = await createCompra(postData);
 
       console.log('Post criado com sucesso:', response.data);
-      // Mensagem de sucesso quando a requisicao for concluida
       setStatusMessage(`ID: ${response.data.id}`);
 
       setCategoria('');
       setValor('');
       setData(new Date());
+      setOpen(false); // Fecha o Dialog após sucesso
     } catch (error) {
       console.error('Error:', error);
       setStatusMessage('Error: Post cancelado.');
@@ -79,20 +75,33 @@ export function RegistrarCompra() {
   }, [data]);
   return (
     <div>
-      <Dialog>
+      <Dialog
+        open={open}
+        onOpenChange={(v) => {
+          setOpen(v);
+          setStatusMessage('');
+          if (v) {
+            setCategoria(''); 
+          }
+        }}
+      >
         <DialogTrigger asChild>
           <Button variant="outline">+ Registrar Compra</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
-          <form onSubmit={handleSubmit}>
-            <DialogHeader>
-              <DialogTitle>Registro de compra</DialogTitle>
-              <DialogDescription>
-                Preencha os campos para registrar uma nova compra
-              </DialogDescription>
-            </DialogHeader>
+          <form onSubmit={handleSubmit} className="grid gap-8">
+            {/* Header */}
+            <div className="grid gap-6">
+              <DialogHeader>
+                <DialogTitle>Registro de compra</DialogTitle>
+                <DialogDescription>
+                  Preencha os campos para registrar uma nova compra
+                </DialogDescription>
+              </DialogHeader>
+            </div>
+            {/* Body */}
             <div className="grid gap-4">
-              <div className="grid gap-3">
+              <div className="grid gap-2">
                 <Label>Valor</Label>
                 <InputCurrency
                   value={valorPago}
@@ -100,7 +109,7 @@ export function RegistrarCompra() {
                   placeholder="R$ 0,00"
                 />
               </div>
-              <div className="grid gap-3">
+              <div className="grid gap-2">
                 <Label>Categoria</Label>
                 <Select value={categoria} onValueChange={setCategoria}>
                   <SelectTrigger>
@@ -113,18 +122,26 @@ export function RegistrarCompra() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="grid gap-3">
+              <div className="grid gap-2">
                 <Label>Data da Compra</Label>
                 <DayPicker date={data} setDate={setData} />
               </div>
             </div>
-
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DialogClose>
-              <Button type="submit">Save changes</Button>
-            </DialogFooter>
+            {/* Footer */}
+            <div className="grid gap-6">
+              {/* Mensagem de erro discreta */}
+              {statusMessage && (
+                <span className="text-xs text-red-500">{statusMessage}</span>
+              )}
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button variant="outline">Cancel</Button>
+                </DialogClose>
+                <Button type="submit" disabled={isLoading}>
+                  {isLoading ? 'Salvando...' : 'Save changes'}
+                </Button>
+              </DialogFooter>
+            </div>
           </form>
         </DialogContent>
       </Dialog>
