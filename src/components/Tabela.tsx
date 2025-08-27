@@ -24,11 +24,13 @@ export function Tabela({
   error: string | null;
 }) {
   return (
-    <div>
+    <div className="h-80 overflow-y-auto w-full">
       <Table className="full">
         <TableHeader>
           <TableRow>
-            <TableHead className='text-center' colSpan={3}>Histórico de compras</TableHead>
+            <TableHead className="text-center" colSpan={3}>
+              Histórico de compras
+            </TableHead>
           </TableRow>
           <TableRow>
             <TableHead>Categoria</TableHead>

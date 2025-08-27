@@ -4,9 +4,8 @@ import { ChartContainer } from '@/components/ui/chart';
 import type { ChartConfig } from '@/components/ui/chart';
 import { ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { ChartLegend, ChartLegendContent } from '@/components/ui/chart';
-import { useMemo, useState,useEffect } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import comprasService from '@/services/comprasService';
-
 
 const dadosTodasCompras = comprasService.getCompras();
 const chartConfig = {
@@ -15,7 +14,6 @@ const chartConfig = {
   },
   semana_2: {
     label: 'Segunda Semana',
-
   },
   semana_3: {
     label: 'Terceira Semana',
@@ -26,28 +24,58 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function Grafico() {
+  const [chartData, setChartData] = useState<any[]>([]);
 
-  const [monthlyData, setMonthlyData] = useState<{ month: string; total: number }[]>([]);
-  const chartData = useMemo(() => {
-    const data = [];
-    const today = new Date();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await comprasService.getCompras();
+        const compras = response.data;
+        const today = new Date();
+        const meses = [];
+        for (let i = 2; i >= 0; i--) {
+          // Use UTC para criar a data de referência do mês
+          const date = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth() - i, 1));
+          const month = date.getUTCMonth();
+          const year = date.getUTCFullYear();
+          const monthName = date.toLocaleString('pt-BR', { month: 'long', timeZone: 'UTC' });
 
-    for (let i = 2; i >= 0; i--) {
-      const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
+          // Filtra compras do mês/ano usando UTC
+          const comprasDoMes = compras.filter((compra: any) => {
+            const dataCompra = new Date(compra.data);
+            return (
+              dataCompra.getUTCMonth() === month &&
+              dataCompra.getUTCFullYear() === year
+            );
+          });
 
-      const monthName = date.toLocaleString('pt-BR', { month: 'long' });
+          // Soma por semana usando o dia em UTC
+          const semanas = [0, 0, 0, 0];
+          comprasDoMes.forEach((compra: any) => {
+            const dia = new Date(compra.data).getUTCDate();
+            if (dia <= 7) semanas[0] += Number(compra.valorPago);
+            else if (dia <= 14) semanas[1] += Number(compra.valorPago);
+            else if (dia <= 21) semanas[2] += Number(compra.valorPago);
+            else semanas[3] += Number(compra.valorPago);
+          });
 
-
-      data.push({
-        month: monthName,
-        semana_1: Math.floor(Math.random() * 300) + 50,
-        semana_2: Math.floor(Math.random() * 200) + 50,
-        semana_3: Math.floor(Math.random() * 150) + 30,
-        semana_4: Math.floor(Math.random() * 100) + 20,
-      });
-    }
-    return data;
+          meses.push({
+            month: monthName,
+            semana_1: semanas[0],
+            semana_2: semanas[1],
+            semana_3: semanas[2],
+            semana_4: semanas[3],
+          });
+        }
+        setChartData(meses);
+      } catch (error) {
+        console.error("Erro ao buscar dados para o gráfico:", error);
+        setChartData([]);
+      }
+    };
+    fetchData();
   }, []);
+
   return (
     <div className="flex flex-col w-full ">
       <ChartContainer

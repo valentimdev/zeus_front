@@ -17,10 +17,7 @@ const router = createBrowserRouter([
         index: true, 
         element: <HomePage />,
       },
-      {
-        path: 'registros',
-        element: <RegistrosPage />,
-      },
+
     ],
   },
 ]);
