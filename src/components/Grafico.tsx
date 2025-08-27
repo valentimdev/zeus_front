@@ -34,13 +34,11 @@ export function Grafico() {
         const today = new Date();
         const meses = [];
         for (let i = 2; i >= 0; i--) {
-          // Use UTC para criar a data de referência do mês
           const date = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth() - i, 1));
           const month = date.getUTCMonth();
           const year = date.getUTCFullYear();
           const monthName = date.toLocaleString('pt-BR', { month: 'long', timeZone: 'UTC' });
 
-          // Filtra compras do mês/ano usando UTC
           const comprasDoMes = compras.filter((compra: any) => {
             const dataCompra = new Date(compra.data);
             return (
@@ -49,7 +47,6 @@ export function Grafico() {
             );
           });
 
-          // Soma por semana usando o dia em UTC
           const semanas = [0, 0, 0, 0];
           comprasDoMes.forEach((compra: any) => {
             const dia = new Date(compra.data).getUTCDate();

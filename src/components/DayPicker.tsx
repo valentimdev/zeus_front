@@ -24,6 +24,7 @@ function DayPicker({
       <PopoverTrigger asChild>
         <div className="flex w-full">
           <Button
+            type="button"
             variant="outline"
             data-empty={!date}
             className="data-[empty=true]:text-muted-foreground w-full justify-start text-left font-normal"
