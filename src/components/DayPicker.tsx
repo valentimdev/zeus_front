@@ -30,7 +30,7 @@ function DayPicker({
             className="data-[empty=true]:text-muted-foreground w-full justify-start text-left font-normal"
           >
             <CalendarIcon />
-            {date ? format(date, 'yyyy-MM-dd') : <span>Pick a date</span>}
+            {date ? format(date, 'dd/MM/yyyy') : <span>Pick a date</span>}
           </Button>
         </div>
       </PopoverTrigger>

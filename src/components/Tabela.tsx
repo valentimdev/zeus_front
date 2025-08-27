@@ -7,6 +7,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Button } from './ui/button';
+import { Trash2 } from 'lucide-react';
 
 const categoriaMap: Record<string, string> = {
   SAUDE: 'Saúde',
@@ -18,10 +20,12 @@ export function Tabela({
   compras,
   loading,
   error,
+  onDelete,
 }: {
   compras: any[];
   loading: boolean;
   error: string | null;
+  onDelete: (id: number) => void;
 }) {
   if (loading) return <p>Carregando...</p>;
   if (error) return <p>{error}</p>;
@@ -44,12 +48,13 @@ export function Tabela({
             <TableHead>Categoria</TableHead>
             <TableHead className="text-center">Data</TableHead>
             <TableHead className="text-right">Valor Pago</TableHead>
+            <TableHead className="text-right">Ações</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {comprasOrdenadas.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={3}>Nenhuma compra encontrada.</TableCell>
+              <TableCell colSpan={4}>Nenhuma compra encontrada.</TableCell>
             </TableRow>
           ) : (
             comprasOrdenadas.map((compra) => (
@@ -64,6 +69,15 @@ export function Tabela({
                 </TableCell>
                 <TableCell className="text-right">
                   R$ {Number(compra.valorPago).toFixed(2)}
+                </TableCell>
+                <TableCell className="text-right">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => onDelete(compra._id)}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
                 </TableCell>
               </TableRow>
             ))

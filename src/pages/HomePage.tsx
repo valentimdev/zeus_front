@@ -5,12 +5,16 @@ import TesteCard from '../components/TesteCard';
 import { useOutletContext } from 'react-router-dom';
 import resumoMes from '@/util/filterDates';
 
+interface ContextType {
+  compras: any[];
+  loading: boolean;
+  error: string | null;
+  handleDeleteCompra: (id: number) => void;
+}
+
 export function HomePage() {
-  const { compras, loading, error } = useOutletContext<{
-    compras: any[];
-    loading: boolean;
-    error: string | null;
-  }>();
+  const { compras, loading, error, handleDeleteCompra } =
+    useOutletContext<ContextType>();
   const [mediaMes, setMediaMes] = useState<any | null>(null);
   const [mediaUltimos3Meses, setMediaUltimos3Meses] = useState<any | null>(
     null
@@ -81,7 +85,12 @@ export function HomePage() {
             />
           </div>
         </div>
-        <Tabela compras={compras} loading={loading} error={error} />
+        <Tabela
+          compras={compras}
+          loading={loading}
+          error={error}
+          onDelete={handleDeleteCompra}
+        />
       </div>
     </div>
   );
