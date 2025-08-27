@@ -1,77 +1,67 @@
 import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
-
-import { ChartContainer } from '@/components/ui/chart';
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+} from '@/components/ui/chart';
 import type { ChartConfig } from '@/components/ui/chart';
-import { ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { ChartLegend, ChartLegendContent } from '@/components/ui/chart';
-import { useMemo, useState, useEffect } from 'react';
-import comprasService from '@/services/comprasService';
+import { useState, useEffect } from 'react';
 
-const dadosTodasCompras = comprasService.getCompras();
 const chartConfig = {
-  semana_1: {
-    label: 'Primeira Semana',
-  },
-  semana_2: {
-    label: 'Segunda Semana',
-  },
-  semana_3: {
-    label: 'Terceira Semana',
-  },
-  semana_4: {
-    label: 'Quarta Semana',
-  },
+  semana_1: { label: 'Primeira Semana' },
+  semana_2: { label: 'Segunda Semana' },
+  semana_3: { label: 'Terceira Semana' },
+  semana_4: { label: 'Quarta Semana' },
 } satisfies ChartConfig;
 
-export function Grafico() {
+export function Grafico({ compras }: { compras: any[] }) {
   const [chartData, setChartData] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await comprasService.getCompras();
-        const compras = response.data;
-        const today = new Date();
-        const meses = [];
-        for (let i = 2; i >= 0; i--) {
-          const date = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth() - i, 1));
-          const month = date.getUTCMonth();
-          const year = date.getUTCFullYear();
-          const monthName = date.toLocaleString('pt-BR', { month: 'long', timeZone: 'UTC' });
+    if (!compras || compras.length === 0) return;
 
-          const comprasDoMes = compras.filter((compra: any) => {
-            const dataCompra = new Date(compra.data);
-            return (
-              dataCompra.getUTCMonth() === month &&
-              dataCompra.getUTCFullYear() === year
-            );
-          });
+    const today = new Date();
+    const meses = [];
+    for (let i = 2; i >= 0; i--) {
+      const date = new Date(
+        Date.UTC(today.getUTCFullYear(), today.getUTCMonth() - i, 1)
+      );
+      const month = date.getUTCMonth();
+      const year = date.getUTCFullYear();
+      const monthName = date.toLocaleString('pt-BR', {
+        month: 'long',
+        timeZone: 'UTC',
+      });
 
-          const semanas = [0, 0, 0, 0];
-          comprasDoMes.forEach((compra: any) => {
-            const dia = new Date(compra.data).getUTCDate();
-            if (dia <= 7) semanas[0] += Number(compra.valorPago);
-            else if (dia <= 14) semanas[1] += Number(compra.valorPago);
-            else if (dia <= 21) semanas[2] += Number(compra.valorPago);
-            else semanas[3] += Number(compra.valorPago);
-          });
+      const comprasDoMes = compras.filter((compra: any) => {
+        const dataCompra = new Date(compra.data);
+        return (
+          dataCompra.getUTCMonth() === month &&
+          dataCompra.getUTCFullYear() === year
+        );
+      });
 
-          meses.push({
-            month: monthName,
-            semana_1: semanas[0],
-            semana_2: semanas[1],
-            semana_3: semanas[2],
-            semana_4: semanas[3],
-          });
-        }
-        setChartData(meses);
-      } catch (error) {
-        console.error("Erro ao buscar dados para o gráfico:", error);
-        setChartData([]);
-      }
-    };
-    fetchData();
-  }, []);
+      const semanas = [0, 0, 0, 0];
+      comprasDoMes.forEach((compra: any) => {
+        const dia = new Date(compra.data).getUTCDate();
+        if (dia <= 7) semanas[0] += Number(compra.valorPago);
+        else if (dia <= 14) semanas[1] += Number(compra.valorPago);
+        else if (dia <= 21) semanas[2] += Number(compra.valorPago);
+        else semanas[3] += Number(compra.valorPago);
+      });
+
+      meses.push({
+        month: monthName,
+        semana_1: semanas[0],
+        semana_2: semanas[1],
+        semana_3: semanas[2],
+        semana_4: semanas[3],
+      });
+    }
+    setChartData(meses);
+  }, [compras]);
 
   return (
     <div className="flex flex-col w-full ">

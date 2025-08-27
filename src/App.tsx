@@ -1,37 +1,36 @@
-import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header.tsx';
-
-import { getCompras } from './services/comprasService';
+import { Outlet } from 'react-router-dom';
+import { getCompras } from './services/comprasService.ts';
 
 function App() {
   const [compras, setCompras] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const fetchCompras = async () => {
+    setLoading(true);
+    try {
+      const response = await getCompras();
+      setCompras(response.data);
+      setError(null);
+    } catch (err) {
+      setError('Erro ao buscar compras');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchCompras = async () => {
-      try {
-        const response = await getCompras();
-        setCompras(response.data);
-      } catch (err) {
-        setError('Erro ao buscar compras');
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchCompras();
   }, []);
 
-  const handleCompraCriada = (novaCompra: any) => {
-    setCompras((comprasAnteriores) => [novaCompra, ...comprasAnteriores]);
-  };
-
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header onCompraCriada={handleCompraCriada} />
-      <main className="flex-1 flex justify-center items-start p-4">
-        <Outlet context={{ compras, loading, error, setCompras }} />
+    <div className="flex flex-col h-screen w-screen">
+      <Header onCompraCriada={fetchCompras} />
+      <main className="flex h-full w-full items-start justify-center pt-8">
+        <Outlet context={{ compras, loading, error }} />
       </main>
     </div>
   );

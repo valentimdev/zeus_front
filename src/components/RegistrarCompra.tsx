@@ -28,7 +28,7 @@ import {
 export function RegistrarCompra({
   onCompraCriada,
 }: {
-  onCompraCriada: (novaCompra: any) => void;
+  onCompraCriada: () => void;
 }) {
   const [categoria, setCategoria] = useState('');
   const [valorPago, setValor] = useState<string | number | undefined>('');
@@ -38,7 +38,7 @@ export function RegistrarCompra({
   const [open, setOpen] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
   const handleSubmit = async (e: any) => {
-    console.log('Enviado!')
+    console.log('Enviado!');
     e.preventDefault();
     setStatusMessage(''); // Limpa antes de validar
 
@@ -58,11 +58,9 @@ export function RegistrarCompra({
     };
 
     try {
-      const response = await createCompra(postData);
+      await createCompra(postData);
 
-      console.log('Post criado com sucesso:', response.data);
-      setStatusMessage(`ID: ${response.data.id}`);
-      onCompraCriada(response.data);
+      onCompraCriada();
 
       setCategoria('');
       setValor('');

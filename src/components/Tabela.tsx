@@ -23,6 +23,13 @@ export function Tabela({
   loading: boolean;
   error: string | null;
 }) {
+  if (loading) return <p>Carregando...</p>;
+  if (error) return <p>{error}</p>;
+
+  const comprasOrdenadas = [...compras].sort(
+    (a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()
+  );
+
   return (
     <div className="h-80 overflow-y-auto w-full">
       <Table className="full">
@@ -39,26 +46,20 @@ export function Tabela({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {loading ? (
+          {comprasOrdenadas.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={4}>Carregando...</TableCell>
-            </TableRow>
-          ) : error ? (
-            <TableRow>
-              <TableCell colSpan={4}>{error}</TableCell>
-            </TableRow>
-          ) : compras.length === 0 ? (
-            <TableRow>
-              <TableCell colSpan={4}>Nenhuma compra encontrada.</TableCell>
+              <TableCell colSpan={3}>Nenhuma compra encontrada.</TableCell>
             </TableRow>
           ) : (
-            compras.map((compra) => (
+            comprasOrdenadas.map((compra) => (
               <TableRow key={compra.id || compra._id}>
                 <TableCell className="font-medium">
                   {categoriaMap[compra.categoria] || compra.categoria}
                 </TableCell>
                 <TableCell className="text-center">
-                  {compra.data.replace(/T00:00:00\.000Z$/, '')}
+                  {new Date(compra.data).toLocaleDateString('pt-BR', {
+                    timeZone: 'UTC',
+                  })}
                 </TableCell>
                 <TableCell className="text-right">
                   R$ {Number(compra.valorPago).toFixed(2)}
