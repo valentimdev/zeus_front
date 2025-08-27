@@ -26,8 +26,10 @@ export function Tabela({
   return (
     <div>
       <Table className="full">
-        <TableCaption>Histórico de compras.</TableCaption>
         <TableHeader>
+          <TableRow>
+            <TableHead className='text-center' colSpan={3}>Histórico de compras</TableHead>
+          </TableRow>
           <TableRow>
             <TableHead>Categoria</TableHead>
             <TableHead className="text-center">Data</TableHead>

@@ -38,6 +38,7 @@ export function RegistrarCompra({
   const [open, setOpen] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
   const handleSubmit = async (e: any) => {
+    console.log('Enviado!')
     e.preventDefault();
     setStatusMessage(''); // Limpa antes de validar
 
@@ -149,10 +150,10 @@ export function RegistrarCompra({
               )}
               <DialogFooter>
                 <DialogClose asChild>
-                  <Button variant="outline">Cancel</Button>
+                  <Button variant="outline">Cancelar</Button>
                 </DialogClose>
                 <Button type="submit" disabled={isLoading}>
-                  {isLoading ? 'Salvando...' : 'Save changes'}
+                  {isLoading ? 'Salvando...' : 'Salvar compra'}
                 </Button>
               </DialogFooter>
             </div>

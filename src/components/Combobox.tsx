@@ -49,7 +49,7 @@ export function Combobox() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <div className='flex w-full border border-amber-400'>
+        <div className='flex w-full '>
           <Button
             variant="outline"
             role="combobox"

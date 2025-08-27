@@ -101,14 +101,14 @@ export function HomePage() {
   return (
     <div className="flex flex-col items-center h-full w-[70%] gap-[20px] ">
       <div className="flex flex-col w-full max-w-5xl gap-[30px]">
-        <div className="flex gap-[20px] w-full max-w-5xl border border-black-200">
+        <div className="flex gap-[20px] w-full max-w-5xl ">
           <div className="flex flex-col flex-1 w-full">
             <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
               Ola, Felipe
             </h3>
             <Grafico />
-          </div>
-          <div className="flex flex-col mx-auto w-[25%] border border black-200 ">
+          </div >
+          <div className="flex gap-4 flex-col mx-auto w-[25%]  ">
             <TesteCard
               title="Resumo do mês"
               descricao="+10% em relação a Julho"
