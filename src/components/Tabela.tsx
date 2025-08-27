@@ -31,7 +31,7 @@ export function Tabela({
   );
 
   return (
-    <div className="h-80 overflow-y-auto w-full">
+    <div className="h-210 overflow-y-auto w-full flex flex-col px-6">
       <p className="font-semibold text-center">Histórico de compras</p>
       <Table className="full">
         <TableHeader>

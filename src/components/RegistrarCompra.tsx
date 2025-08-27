@@ -90,7 +90,9 @@ export function RegistrarCompra({
         }}
       >
         <DialogTrigger asChild>
-          <Button variant="outline">+ Registrar Compra</Button>
+          <Button className="font-bold hover:bg-[var(--color-chart-5)] border border bg white]" variant="outline">
+            + Registrar Compra
+          </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <form onSubmit={handleSubmit} className="grid gap-8">

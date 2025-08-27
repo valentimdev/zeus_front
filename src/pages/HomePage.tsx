@@ -58,8 +58,8 @@ export function HomePage() {
       <div className="flex flex-col w-full max-w-5xl gap-[30px]">
         <div className="flex gap-[20px] w-full max-w-5xl ">
           <div className="flex flex-col flex-1 w-full">
-            <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-              Ola, Felipe
+            <h3 className="scroll-m-20 text-3xl font-semibold tracking-tight">
+              Olá, Felipe
             </h3>
             <Grafico compras={compras} />
           </div>
