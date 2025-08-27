@@ -18,7 +18,7 @@ function RegistrosPage() {
     try {
       await comprasService.createCompra({
         valorPago: parseFloat(valorPago),
-        quantidadeComprada: parseInt(quantidadeComprada, 10),
+        // quantidadeComprada: parseInt(quantidadeComprada, 10),
         data: date ? date.toISOString() : undefined,
       });
       setSuccess('Compra registrada com sucesso!');

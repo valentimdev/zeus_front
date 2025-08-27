@@ -32,12 +32,13 @@ export function Tabela({
 
   return (
     <div className="h-80 overflow-y-auto w-full">
+      <p className="font-semibold text-center">Histórico de compras</p>
       <Table className="full">
         <TableHeader>
           <TableRow>
-            <TableHead className="text-center" colSpan={3}>
+            {/* <TableHead className="text-center" colSpan={3}>
               Histórico de compras
-            </TableHead>
+            </TableHead> */}
           </TableRow>
           <TableRow>
             <TableHead>Categoria</TableHead>

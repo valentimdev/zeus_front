@@ -74,6 +74,11 @@ export function HomePage() {
               descricao="Baseado nos ultimos 3 meses"
               conteudo={`R$${(mediaUltimos3Meses || 0).toFixed(2)}`}
             />
+            <TesteCard
+              title="Média de gastos"
+              descricao="Baseado nos ultimos 3 meses"
+              conteudo={`R$${(mediaUltimos3Meses || 0).toFixed(2)}`}
+            />
           </div>
         </div>
         <Tabela compras={compras} loading={loading} error={error} />
