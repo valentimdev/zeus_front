@@ -65,7 +65,7 @@ export function RegistrarCompra({
       setCategoria('');
       setValor('');
       setData(new Date());
-      setOpen(false); // Fecha o Dialog após sucesso
+      setOpen(false); 
     } catch (error) {
       console.error('Error:', error);
       setStatusMessage('Error: Post cancelado.');
@@ -74,9 +74,9 @@ export function RegistrarCompra({
     }
   };
 
-  useEffect(() => {
-    console.log('Data selecionada:', format(data, 'yyyy-MM-dd'));
-  }, [data]);
+  // useEffect(() => {
+  //   console.log('Data selecionada:', format(data, 'yyyy-MM-dd'));
+  // }, [data]);
   return (
     <div>
       <Dialog
