@@ -35,7 +35,7 @@ export function Tabela({
   );
 
   return (
-    <div className="h-210 overflow-y-auto w-full flex flex-col px-6">
+    <div className="h-210 overflow-y-auto w-full a flex flex-col px-6">
       <p className="font-semibold text-center">Histórico de compras</p>
       <Table className="full">
         <TableHeader>
@@ -46,9 +46,9 @@ export function Tabela({
           </TableRow>
           <TableRow>
             <TableHead>Categoria</TableHead>
-            <TableHead className="text-center">Data</TableHead>
-            <TableHead className="text-right">Valor Pago</TableHead>
-            <TableHead className="text-right">Ações</TableHead>
+            <TableHead className="">Data</TableHead>
+            <TableHead className="">Valor Pago</TableHead>
+            <TableHead className="">Ações</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -62,15 +62,15 @@ export function Tabela({
                 <TableCell className="font-medium">
                   {categoriaMap[compra.categoria] || compra.categoria}
                 </TableCell>
-                <TableCell className="text-center">
+                <TableCell className="">
                   {new Date(compra.data).toLocaleDateString('pt-BR', {
                     timeZone: 'UTC',
                   })}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="">
                   R$ {Number(compra.valorPago).toFixed(2)}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="">
                   <Button
                     variant="ghost"
                     size="icon"
