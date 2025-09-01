@@ -176,7 +176,7 @@ export function HomePage() {
             </h3>
             <Grafico compras={compras} />
           </div>
-          <div className="flex flex-row lg:flex-col gap-4 w-[25%] lg:w-[25%]">
+          <div className="flex flex-col lg:flex-col gap-4  w-[100%] lg:w-[25%]">
             <TesteCard
               title="Resumo do mês"
               descricao={descricaoResumoMes}

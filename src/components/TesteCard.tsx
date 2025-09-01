@@ -16,8 +16,8 @@ type TesteCardProps = {
 
 export function TesteCard({ title, descricao,conteudo }: TesteCardProps) {
   return (
-    <div className='text-center'>
-    <Card>
+    <div className='text-center border '>
+    <Card className=''>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{descricao}</CardDescription>

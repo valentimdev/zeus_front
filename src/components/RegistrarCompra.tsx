@@ -90,7 +90,7 @@ export function RegistrarCompra({
         }}
       >
         <DialogTrigger asChild>
-          <Button className="font-bold hover:bg-[var(--color-chart-5)] border border bg white]" variant="outline">
+          <Button className="font-bold hover:bg-[var(--color-chart-5)] " variant="outline">
             + Registrar Compra
           </Button>
         </DialogTrigger>
