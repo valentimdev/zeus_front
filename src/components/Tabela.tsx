@@ -35,23 +35,23 @@ export function Tabela({
   );
 
   return (
-    <div className="h-210 overflow-y-auto w-full a flex flex-col px-6">
+    <div className="h-180 overflow-y-auto w-full a flex flex-col px-6 align-middle">
       <p className="font-semibold text-center">Histórico de compras</p>
       <Table className="full">
-        <TableHeader>
+        <TableHeader className='text-center '>
           <TableRow>
             {/* <TableHead className="text-center" colSpan={3}>
               Histórico de compras
             </TableHead> */}
           </TableRow>
           <TableRow>
-            <TableHead>Categoria</TableHead>
-            <TableHead className="">Data</TableHead>
-            <TableHead className="">Valor Pago</TableHead>
-            <TableHead className="">Ações</TableHead>
+            <TableHead className="text-center">Categoria</TableHead>
+            <TableHead className="text-center">Data</TableHead>
+            <TableHead className="text-center">Valor Pago</TableHead>
+            <TableHead className="text-center">Ações</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody className="text-center">
           {comprasOrdenadas.length === 0 ? (
             <TableRow>
               <TableCell colSpan={4}>Nenhuma compra encontrada.</TableCell>
