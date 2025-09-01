@@ -34,7 +34,7 @@ function DayPicker({
           </Button>
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
+      <PopoverContent className="w-auto p-0" side="bottom" sideOffset={4}  avoidCollisions={false} >
         <Calendar
           mode="single"
           selected={date}
@@ -42,6 +42,8 @@ function DayPicker({
             setDate(selectedDate);
             setOpen(false);
           }}
+          toDate={new Date()}
+          disabled={{ after: new Date() }} 
         />
       </PopoverContent>
     </Popover>
