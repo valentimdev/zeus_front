@@ -19,6 +19,13 @@ export function HomePage() {
   const [mediaUltimos3Meses, setMediaUltimos3Meses] = useState<any | null>(
     null
   );
+  const [categoriaMaisComprada, setCategoriaMaisComprada] = useState('');
+
+  const categoriaMap: Record<string, string> = {
+    SAUDE: 'Saúde',
+    COMIDA: 'Comida',
+    LAZER: 'Lazer',
+  };
 
   useEffect(() => {
     if (!compras || compras.length === 0) return;
@@ -53,8 +60,41 @@ export function HomePage() {
       setMediaUltimos3Meses(valorFinal / dadosFiltrados.length);
     };
 
+    const calcularCategoriaMaisComprada = () => {
+      const hoje = new Date();
+      const mesAtual = hoje.getMonth();
+      const anoAtual = hoje.getFullYear();
+
+      const comprasDoMes = compras.filter((compra: any) => {
+        const dataCompra = new Date(compra.data);
+        return (
+          dataCompra.getMonth() === mesAtual &&
+          dataCompra.getFullYear() === anoAtual
+        );
+      });
+
+      if (comprasDoMes.length === 0) {
+        setCategoriaMaisComprada('Nenhuma');
+        return;
+      }
+
+      const contagemCategorias = comprasDoMes.reduce((acc, compra) => {
+        acc[compra.categoria] = (acc[compra.categoria] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
+
+      const categoriaPrincipal = Object.keys(contagemCategorias).reduce(
+        (a, b) => (contagemCategorias[a] > contagemCategorias[b] ? a : b)
+      );
+
+      setCategoriaMaisComprada(
+        categoriaMap[categoriaPrincipal] || categoriaPrincipal
+      );
+    };
+
     fetchResumo();
     fetchMediaUltimos3Meses();
+    calcularCategoriaMaisComprada();
   }, [compras]);
 
   return (
@@ -79,9 +119,9 @@ export function HomePage() {
               conteudo={`R$${(mediaUltimos3Meses || 0).toFixed(2)}`}
             />
             <TesteCard
-              title="Média de gastos"
-              descricao="Baseado nos ultimos 3 meses"
-              conteudo={`R$${(mediaUltimos3Meses || 0).toFixed(2)}`}
+              title="Categoria mais comprada no mês"
+              descricao="Baseado no mês atual"
+              conteudo={categoriaMaisComprada}
             />
           </div>
         </div>
