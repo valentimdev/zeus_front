@@ -3,7 +3,7 @@ import '../style/Header.css';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import RegistrarCompra from './RegistrarCompra';
-import logo from '../assets/images/logo.png';
+import logo from '../assets/images/logo.svg';
 
 const Header: React.FC<{ onCompraCriada: () => void }> = ({
   onCompraCriada,
