@@ -7,7 +7,12 @@ import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import React, { type Dispatch, type SetStateAction } from 'react';
+import React, {
+  useEffect,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from 'react';
 
 function DayPicker({
   date,
@@ -18,7 +23,13 @@ function DayPicker({
 }) {
   // const [date, setDate] = React.useState<Date | undefined>(new Date());
   const [open, setOpen] = React.useState(false);
+  const [displayMonth, setDisplayMonth] = useState<Date>(date || new Date());
 
+  useEffect(() => {
+    if (date) {
+      setDisplayMonth(date);
+    }
+  }, [date]);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -34,16 +45,28 @@ function DayPicker({
           </Button>
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" side="top" sideOffset={4}  avoidCollisions={false} >
+      <PopoverContent
+        className="w-auto p-0"
+        side="top"
+        sideOffset={4}
+        avoidCollisions={false}
+      >
         <Calendar
           mode="single"
           selected={date}
           onSelect={(selectedDate) => {
-            setDate(selectedDate);
+            if (selectedDate) {
+              setDate(selectedDate);
+            }
             setOpen(false);
           }}
           toDate={new Date()}
-          disabled={{ after: new Date() }} 
+          disabled={{ after: new Date() }}
+          fixedWeeks
+          // toMonth={new Date()}
+          // month={date}
+          month={displayMonth}
+          onMonthChange={setDisplayMonth}
         />
       </PopoverContent>
     </Popover>

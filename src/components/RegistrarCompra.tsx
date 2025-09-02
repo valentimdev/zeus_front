@@ -84,6 +84,7 @@ export function RegistrarCompra({
         onOpenChange={(v) => {
           setOpen(v);
           setStatusMessage('');
+          setData(new Date());
           if (v) {
             setCategoria('');
           }
