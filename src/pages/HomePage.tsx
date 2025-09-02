@@ -23,7 +23,7 @@ interface ContextType {
 export function HomePage() {
   const { compras, loading, error, handleDeleteCompra } =
     useOutletContext<ContextType>();
-  const [mediaMes, setMediaMes] = useState<number>(0);
+  const [totalMes, setTotalMes] = useState<number>(0);
   const [mediaUltimos3Meses, setMediaUltimos3Meses] = useState<number>(0);
   const [categoriaMaisComprada, setCategoriaMaisComprada] = useState('');
   const [descricaoResumoMes, setDescricaoResumoMes] = useState('');
@@ -36,7 +36,7 @@ export function HomePage() {
 
   useEffect(() => {
     if (!compras || compras.length === 0) {
-      setMediaMes(0);
+      setTotalMes(0);
       setMediaUltimos3Meses(0);
       setCategoriaMaisComprada('Nenhuma');
       setDescricaoResumoMes('Sem dados');
@@ -53,10 +53,9 @@ export function HomePage() {
             accumulator + initialValue.valorPago,
           0
         );
-        const mediaValores = valorMensal / requestResponse.length;
-        setMediaMes(mediaValores);
+        setTotalMes(valorMensal);
       } else {
-        setMediaMes(0);
+        setTotalMes(0);
       }
     };
 
@@ -178,9 +177,9 @@ export function HomePage() {
           </div>
           <div className="flex flex-col lg:flex-col gap-4  w-[100%] lg:w-[25%]">
             <TesteCard
-              title="Resumo do mês"
+              title="Gasto total do mês"
               descricao={descricaoResumoMes}
-              conteudo={`R$${(mediaMes || 0).toFixed(2)}`}
+              conteudo={`R$${(totalMes || 0).toFixed(2)}`}
             />
             <TesteCard
               title="Média de gastos"
@@ -206,4 +205,3 @@ export function HomePage() {
 }
 
 export default HomePage;
-
