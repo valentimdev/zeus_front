@@ -1,7 +1,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -22,11 +21,32 @@ import { Button } from './ui/button';
 import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
+/**
+ * @constant {Record<string, string>} categoriaMap
+ * A map to translate category keys to human-readable names.
+ */
 const categoriaMap: Record<string, string> = {
   SAUDE: 'Saúde',
   COMIDA: 'Comida',
   LAZER: 'Lazer',
 };
+
+/**
+ * A component that displays a table of purchases with an option to delete each entry.
+ * @param {object} props - The component props.
+ * @param {any[]} props.compras - An array of purchase objects.
+ * @param {boolean} props.loading - A flag indicating if the data is being loaded.
+ * @param {string | null} props.error - An error message, if any.
+ * @param {(id: number) => void} props.onDelete - Callback function to be called when a purchase is deleted.
+ * @returns {JSX.Element} The rendered Tabela component.
+ */
+interface Compra {
+  id: string | number;
+  _id: string | number;
+  categoria: string;
+  valorPago: number;
+  data: string;
+}
 
 export function Tabela({
   compras,
@@ -34,7 +54,7 @@ export function Tabela({
   error,
   onDelete,
 }: {
-  compras: any[];
+  compras: Compra[];
   loading: boolean;
   error: string | null;
   onDelete: (id: number) => void;

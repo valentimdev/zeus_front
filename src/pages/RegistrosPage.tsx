@@ -4,6 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import comprasService from '../services/comprasService';
 
+/**
+ * A page for registering new purchases.
+ * @returns {JSX.Element} The rendered RegistrosPage component.
+ */
 function RegistrosPage() {
   const [valorPago, setValorPago] = useState('');
   const [quantidadeComprada, setQuantidadeComprada] = useState('1');
@@ -11,6 +15,10 @@ function RegistrosPage() {
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
 
+  /**
+   * Handles the form submission to create a new purchase.
+   * @param {React.FormEvent} e - The form event.
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSuccess('');

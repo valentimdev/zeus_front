@@ -1,13 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header.tsx';
 import { Outlet } from 'react-router-dom';
-import comprasService, { getCompras,deleteCompra } from './services/comprasService.ts';
+import comprasService, { getCompras } from './services/comprasService.ts';
+
+/**
+ * The main component of the application.
+ * It serves as the root layout and handles fetching and managing purchase data.
+ * @returns {JSX.Element} The rendered App component.
+ */
+interface Compra {
+  id: string | number;
+  _id: string | number;
+  categoria: string;
+  valorPago: number;
+  data: string;
+}
 
 function App() {
-  const [compras, setCompras] = useState<any[]>([]);
+  const [compras, setCompras] = useState<Compra[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  /**
+   * Fetches the list of purchases from the server and updates the state.
+   */
   const fetchCompras = async () => {
     setLoading(true);
     try {
@@ -26,6 +42,10 @@ function App() {
     fetchCompras();
   }, []);
 
+  /**
+   * Handles the deletion of a purchase.
+   * @param {number} id - The ID of the purchase to be deleted.
+   */
   const handleDeleteCompra = async (id: number) => {
     try {
       await comprasService.deleteCompra(id);

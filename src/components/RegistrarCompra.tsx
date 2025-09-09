@@ -10,12 +10,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import Combobox from './Combobox';
 import DayPicker from './DayPicker';
 import InputCurrency from './InputCurrency';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { createCompra } from '@/services/comprasService';
 import {
   Select,
@@ -25,6 +23,12 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
+/**
+ * A dialog component for registering a new purchase.
+ * @param {object} props - The component props.
+ * @param {() => void} props.onCompraCriada - Callback function to be called when a new purchase is created.
+ * @returns {JSX.Element} The rendered RegistrarCompra component.
+ */
 export function RegistrarCompra({
   onCompraCriada,
 }: {
@@ -34,10 +38,14 @@ export function RegistrarCompra({
   const [valorPago, setValor] = useState<string | number | undefined>('');
   const [data, setData] = useState<Date>(new Date());
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
-  const handleSubmit = async (e: any) => {
+
+  /**
+   * Handles the form submission to create a new purchase.
+   * @param {React.FormEvent} e - The form event.
+   */
+  const handleSubmit = async (e: React.FormEvent) => {
     console.log('Enviado!');
     e.preventDefault();
     setStatusMessage(''); // Limpa antes de validar
