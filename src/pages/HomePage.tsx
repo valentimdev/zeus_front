@@ -5,6 +5,15 @@ import TesteCard from '../components/TesteCard';
 import { useOutletContext } from 'react-router-dom';
 import resumoMes from '@/util/filterDates';
 
+/**
+ * @interface Compra
+ * Defines the structure of a purchase object.
+ * @property {string | number} id - The unique identifier for the purchase.
+ * @property {string | number} _id - Alternative unique identifier.
+ * @property {string} categoria - The category of the purchase.
+ * @property {number} valorPago - The amount paid for the purchase.
+ * @property {string} data - The date of the purchase.
+ */
 interface Compra {
   id: string | number;
   _id: string | number;
@@ -13,6 +22,14 @@ interface Compra {
   data: string;
 }
 
+/**
+ * @interface ContextType
+ * Defines the structure of the context provided by the outlet.
+ * @property {Compra[]} compras - An array of purchase objects.
+ * @property {boolean} loading - A flag indicating if the data is being loaded.
+ * @property {string | null} error - An error message, if any.
+ * @property {(id: string | number) => void} handleDeleteCompra - Function to delete a purchase.
+ */
 interface ContextType {
   compras: Compra[];
   loading: boolean;
@@ -20,6 +37,10 @@ interface ContextType {
   handleDeleteCompra: (id: string | number) => void;
 }
 
+/**
+ * The home page of the application, which displays a dashboard with purchase statistics.
+ * @returns {JSX.Element} The rendered HomePage component.
+ */
 export function HomePage() {
   const { compras, loading, error, handleDeleteCompra } =
     useOutletContext<ContextType>();

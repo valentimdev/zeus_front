@@ -9,6 +9,10 @@ import {
 import type { ChartConfig } from '@/components/ui/chart';
 import { useState, useEffect } from 'react';
 
+/**
+ * @constant {ChartConfig} chartConfig
+ * The configuration for the chart, defining the labels for each week.
+ */
 const chartConfig = {
   semana_1: { label: 'Primeira Semana' },
   semana_2: { label: 'Segunda Semana' },
@@ -16,7 +20,21 @@ const chartConfig = {
   semana_4: { label: 'Quarta Semana' },
 } satisfies ChartConfig;
 
-export function Grafico({ compras }: { compras: any[] }) {
+/**
+ * A component that displays a bar chart of purchases over the last 3 months, broken down by week.
+ * @param {object} props - The component props.
+ * @param {any[]} props.compras - An array of purchase objects.
+ * @returns {JSX.Element} The rendered Grafico component.
+ */
+interface Compra {
+  id: string | number;
+  _id: string | number;
+  categoria: string;
+  valorPago: number;
+  data: string;
+}
+
+export function Grafico({ compras }: { compras: Compra[] }) {
   const [chartData, setChartData] = useState<any[]>([]);
 
   useEffect(() => {
